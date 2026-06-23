@@ -14,13 +14,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>todo app pro</title>
+    <title>Sabzlearn - todo app</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body onload="setData()">
     <div class="wrapper">
       <div class="title">
-        <h1>تودو لیست</h1>
+        <h1>سبزلرن - تودو لیست</h1>
       </div>
 
       <div class="header-buttons">
@@ -70,7 +70,7 @@
 
       <section class="todos-container">
         <!-- Todos Added By Js -->
-        <article class="todo">
+        <!-- <article class="todo">
           <div class="todo-data">
             <div class="checkbox">
               <span>
@@ -96,14 +96,14 @@
             </div>
             <button class="complete">تکمیل</button>
           </div>
-        </article>
+        </article> -->
       </section>
     </div>
 
     <div class="modal-screen hidden">
       <div class="modal">
         <header>
-          <button>
+          <button class="x-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -137,7 +137,7 @@
         </main>
         <footer>
           <button class="cancel">انصراف</button>
-          <button class="create">ایجاد</button>
+          <button class="create" onclick="createBtnHandler(input.value)">ایجاد</button>
         </footer>
       </div>
     </div>
