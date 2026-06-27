@@ -6,12 +6,20 @@ const create = document.querySelector('.create');
 const cancel = document.querySelector('.cancel');
 const xBtn = document.querySelector('.x-btn');
 const statusBtn = document.querySelector('.status');
+const deleteBtns = document.querySelectorAll('.delete');
+const todos = document.querySelectorAll('.todo');
+
 
 const todoLists = [];
 
 function setData() {
-    const datas = JSON.parse(localStorage.getItem('todoData')); 
+  const datas = JSON.parse(localStorage.getItem('todoData')); 
 
+  datas.forEach(function(data){
+    const mainTitle = data.title;
+    createBtnHandler(mainTitle);
+    
+  });
     
     
 
@@ -27,8 +35,13 @@ function closeModalHandler() {
 };
 
 function createBtnHandler(title) {
+    const newTodo = {
+      id : todoLists.length + 1 ,
+      title: title ,
+      status: 'وضیعت',
+    }
 
-    todoLists.push(`{ id : ${todoLists.length + 1} , status : وضیعت , title : ${title} , } ,`);
+    todoLists.push(newTodo);
 
     todosContainer.insertAdjacentHTML('afterbegin',
         `
@@ -64,7 +77,8 @@ function createBtnHandler(title) {
     );
 
     closeModalHandler();
-    localStorage.setItem('todoData' , JSON.stringify(todoLists));
+    localStorage.setItem('todoData' , JSON.stringify(todoLists)); 
+
 };
 
 
@@ -72,5 +86,14 @@ function createBtnHandler(title) {
 openModalButton.addEventListener('click',openModalHandler);
 cancel.addEventListener('click',closeModalHandler);
 xBtn.addEventListener('click',closeModalHandler);
+// deleteBtns.forEach(function(deleteBtn){
+//   deleteBtn.addEventListener('click',function(event){
+    
+//     console.log(event.target);
+    
+      
+//   });
+  
+// });
 
 
