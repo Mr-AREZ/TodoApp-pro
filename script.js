@@ -12,18 +12,6 @@ const todos = document.querySelectorAll('.todo');
 
 const todoLists = [];
 
-function setData() {
-  const datas = JSON.parse(localStorage.getItem('todoData')); 
-
-  datas.forEach(function(data){
-    const mainTitle = data.title;
-    createBtnHandler(mainTitle);
-    
-  });
-    
-    
-
-};
 
 function openModalHandler() {
     modalScreen.classList.remove('hidden');
@@ -31,20 +19,46 @@ function openModalHandler() {
 
 function closeModalHandler() {
     modalScreen.classList.add('hidden');
-    input.value = '' ;
 };
 
-function createBtnHandler(title) {
-    const newTodo = {
-      id : todoLists.length + 1 ,
-      title: title ,
-      status: 'وضیعت',
-    }
+function addTodoToMainArray() {
+  todosContainer.innerHTML = '';
+  const todoTitle = input.value;
+  const todo = {
+      id: Math.floor(Math.random()*99999),
+      title : todoTitle,
+      iscomplete:false,
+  };
 
-    todoLists.push(newTodo);
+  // console.log(todoLists.every(function(todoList){return todoList.id === todo.id}));
+  
+  // if () {
+    todoLists.push(todo);
+  // };
+  
 
-    todosContainer.insertAdjacentHTML('afterbegin',
-        `
+
+  
+
+};
+
+function addToLocalStorage () {
+  todoLists.forEach(function(todoList){
+    localStorage.setItem('datasTodos' , JSON.stringify(todoList));
+  });
+    
+};
+
+function createTodoHandler () {
+  addTodoToMainArray();
+  addToLocalStorage();
+  todoLists.forEach(function(todoList){
+    
+    console.log(todoList);
+    
+    todosContainer.insertAdjacentHTML('beforeend',
+      `
+      
         <article class="todo">
           <div class="todo-data">
             <div class="checkbox">
@@ -55,7 +69,7 @@ function createBtnHandler(title) {
               </span>
             </div>
             <div>
-              <p class="todo-title">${title}</p>
+              <p class="todo-title">${todoList.title}</p>
             </div>
           </div>
 
@@ -73,27 +87,17 @@ function createBtnHandler(title) {
           </div>
         </article>
 
-        `
+      `
     );
-
-    closeModalHandler();
-    localStorage.setItem('todoData' , JSON.stringify(todoLists)); 
-
+  });
+  input.value = '' ;
+  closeModalHandler()
 };
-
 
 
 openModalButton.addEventListener('click',openModalHandler);
 cancel.addEventListener('click',closeModalHandler);
 xBtn.addEventListener('click',closeModalHandler);
-// deleteBtns.forEach(function(deleteBtn){
-//   deleteBtn.addEventListener('click',function(event){
-    
-//     console.log(event.target);
-    
-      
-//   });
-  
-// });
+create.addEventListener('click',createTodoHandler)
 
 
